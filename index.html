@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+::selection {
+    background-color: #555a;
+}
+body {
+    background-color: #000;
+    overflow: hidden;
+    /* background-image: url(tex.png); */
+}
+
+#enter-anim {
+    --clr: #991515;
+    --bg: #181818;
+    position: absolute;
+    left: 50%; top: 50%; width: 1000px; height: 500px;
+    transform: translate(-50%, -50%);
+    background-color: var(--bg);
+    -webkit-mask: url(tex.png) luminance;
+    mask: url(tex.png) luminance;
+    font-family: "游明朝";
+    color: var(--bg);
+    -webkit-user-select: none;
+    user-select: none;
+}
+#enter-anim > circ, #enter-anim > cont {
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    bottom: -380px;
+    left: 100px;
+    border-radius: 50%;
+    background-color: var(--clr);
+}
+#enter-anim > circ::before {
+    content: "";
+    position: absolute;
+    left: 250px;
+    top: 250px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: var(--bg);
+}
+#enter-anim > circ::after {
+    content: "";
+    position: absolute;
+    left: 180px;
+    top: 180px;
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--bg);
+}
+#enter-anim > h2 {
+    position: absolute;
+    margin: 0;
+    left: 300px;
+    width: 400px;
+    top: 140px;
+    line-height: 80px;
+    font-size: 50px;
+    display: flex;
+    justify-content: space-around;
+    /* font-weight: normal; */
+}
+#enter-anim > hrr {
+    position: absolute;
+    left: 300px;
+    width: 400px;
+    top: 210px;
+    height: 1.5px;
+    background-color: var(--bg);
+}
+#enter-anim > hrr::before, #enter-anim > hrr::after {
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    left: -15px;
+    top: -3px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 5px var(--bg);
+}
+#enter-anim > hrr::after {
+    left: 408px;
+}
+#enter-anim > en {
+    position: absolute;
+    left: 300px;
+    width: 400px;
+    top: 200px;
+    line-height: 40px;
+    font-size: 15px;
+    text-align: center;
+    letter-spacing: 5px;
+}
+#enter-anim > deco1, #enter-anim > deco2 {
+    position: absolute;
+    left: 50px;
+    top: -100px;
+    height: 320px;
+    width: 320px;
+    -webkit-mask: url(shinobu1.png) alpha 0/cover;
+    mask: url(shinobu1.png) alpha 0/cover;
+    background-color: var(--clr);
+}
+#enter-anim > deco2 {
+    left: 780px;
+    top: -40px;
+    -webkit-mask: url(shinobu2.png) alpha 0/cover;
+    mask: url(shinobu2.png) alpha 0/cover;
+}
+
+@keyframes enter-anim-fan {
+    0%,50% {
+        stroke-dasharray: 0 10000;
+        stroke-dashoffset: -1884;
+    }
+}
+#enter-anim-mask > circle {
+    animation: enter-anim-fan 1.5s;
+    stroke-width: 800;
+    stroke-dasharray: 628 10000;
+    stroke-dashoffset: -1570;
+    fill: transparent;
+    stroke: #000;
+}
+
+#enter-anim > cont {
+    mask: url(#enter-anim-mask) alpha;
+    font-size: 100px;
+    bottom: -378px;
+    background-color: var(--bg);
+    color: var(--clr);
+    line-height: 30px;
+    font-size: 20px;
+    text-align: center;
+}
+#enter-anim > cont > h3, #enter-anim > cont > h4 {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 160px;
+    margin: 0;
+    font-weight: normal;
+    letter-spacing: 15px;
+}
+#enter-anim > cont > h3 > space {
+    margin: 0 30px;
+}
+#enter-anim > cont > h4 {
+    top: 200px;
+    letter-spacing: 2px;
+}
+#enter-anim > cont > snb {
+    position: absolute;
+    left: 370px;
+    top: 70px;
+    width: 60px;
+    height: 120px;
+    background-color: var(--clr);
+    mask: url(./shinobu.png) alpha 0/cover;
+}
+    </style>
+</head>
+<body>
+    <div id="enter-anim">
+        <circ></circ>
+        <h2><span>終</span><span>物</span><span>語</span></h2>
+        <hrr></hrr>
+        <en>MONOGATARI FINAL SEASON</en>
+        <deco1></deco1>
+        <deco2></deco2>
+        <svg viewBox="0 0 800 800">
+            <defs>
+                <mask id="enter-anim-mask">
+                    <circle r="400" cx="400" cy="400"/>
+                </mask>
+            </defs>
+        </svg>
+        <cont>
+            <h3>しのぶ<space></space>メイル</h3>
+            <h4>其ノ肆</h4>
+            <snb></snb>
+        </cont>
+    </div>
+    <script>
+// let cc = document.querySelector("circle");
+// cc.setAttribute("r", "20");
+    </script>
+</body>
+</html>
