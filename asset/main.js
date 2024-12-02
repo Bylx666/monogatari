@@ -43,6 +43,7 @@ function init_enter_anim() {
     };
 
     function show(name) {
+        let url = suf=> `url(/asset/enter-anim/${name}${suf}.png) alpha 0/cover`;
         let o = OBJ[name];
         if (!o) return;
         $bangumi_name.text("");
@@ -50,6 +51,10 @@ function init_enter_anim() {
         $bangumi_name_en.text(o.bangumi_name_en);
         $content_title.text(o.content_title[0]).append(d("space").d).append(o.content_title[1]);
         $content_subtitle.text(o.content_subtitle);
+
+        $deco1.style(`-webkit-mask: ${url(1)};mask: ${url(1)};`);
+        $deco2.style(`-webkit-mask: ${url(2)};mask: ${url(2)};`);
+        $shinobu.style(`-webkit-mask: ${url("")};mask: ${url("")};`);
     }
 
     function onresize() {

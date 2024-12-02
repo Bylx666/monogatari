@@ -108,15 +108,11 @@ body {
     top: -100px;
     height: 320px;
     width: 320px;
-    -webkit-mask: url(/asset/enter-anim/shinobu1.png) alpha 0/cover;
-    mask: url(/asset/enter-anim/shinobu1.png) alpha 0/cover;
     background-color: var(--clr);
 }
 #enter-anim > deco2 {
     left: 780px;
     top: -40px;
-    -webkit-mask: url(/asset/enter-anim/shinobu2.png) alpha 0/cover;
-    mask: url(/asset/enter-anim/shinobu2.png) alpha 0/cover;
 }
 
 @keyframes enter-anim-fan {
@@ -167,5 +163,4 @@ body {
     width: 60px;
     height: 120px;
     background-color: var(--clr);
-    mask: url(/asset/enter-anim/shinobu.png) alpha 0/cover;
 }
