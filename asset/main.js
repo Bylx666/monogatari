@@ -1,3 +1,4 @@
+
 class Div {
     constructor(tag = "div") { this.d = document.createElement(tag) }
     under(e) {
@@ -26,6 +27,10 @@ class Div {
     }
     html(s) {
         this.d.innerHTML = s;
+        return this;
+    }
+    attr(a, b) {
+        this.d[a] = b;
         return this;
     }
     rawattr(a, b) {
@@ -70,6 +75,7 @@ function init_enter_anim() {
 
         onresize();
         window.addEventListener("resize", onresize);
+        fullmask.d.style.animation = $d.d.style.animation = "fade-in 0.1s";
         fullmask.under(document.body);
         $d.under(document.body);
     }
@@ -80,7 +86,7 @@ function init_enter_anim() {
     }
 
     function fadeout() {
-        $d.d.style.animation = "fade-in 0.1s reverse";
+        fullmask.d.style.animation = $d.d.style.animation = "fade-in 0.1s reverse";
         window.removeEventListener("resize", onresize);
         $d.once("animationend", ()=> {$d.rm(); fullmask.rm();});
     }
@@ -123,108 +129,19 @@ function init_route() {
         if (typeof page === "function") page = PAGES[pagename] = page();
         if (pushstate) history.pushState(0, "", to);
         MAIN.text("").append(page);
+        if (current_page && current_page.onleave) current_page.onleave();
+        current_page = page;
         if (page.ongo) page.ongo();
     }
 
+    let current_page = null;
+    
     go(document.location.pathname);
     window.addEventListener("popstate", ()=> go(document.location.pathname));
     return { go };
 }
 
 function page_home() {
-    const TVLS = [
-        {
-            id: "bake", 
-            name: "化物语", 
-            jp: "bakemonogatari", 
-            time: "2009-07", 
-            post: ""
-        }, {
-            id: "nise", 
-            name: "偽物語", 
-            jp: "nisemonogatari", 
-            time: "2012-01", 
-            post: ""
-        }, {
-            id: "nekokuro", 
-            name: "猫物語(黑)", 
-            jp: "nekomonogatari(kuro)", 
-            time: "2012-01", 
-            post: ""
-        }, {
-            id: "nekoshiro", 
-            name: "猫物語(白)", 
-            jp: "nekomonogatari(shiro)", 
-            time: "2013-07", 
-            post: ""
-        }, {
-            id: "kabu", 
-            name: "傾物語", 
-            jp: "kabukimonogatari", 
-            time: "2013-07", 
-            post: ""
-        }, {
-            id: "otori", 
-            name: "囮物語", 
-            jp: " otorimonogatari", 
-            time: "2013-07", 
-            post: ""
-        }, {
-            id: "oni", 
-            name: "鬼物語", 
-            jp: "onimonogatari", 
-            time: "2013-07", 
-            post: ""
-        }, {
-            id: "koi", 
-            name: "恋物語", 
-            jp: "koimonogatari", 
-            time: "2013-07", 
-            post: ""
-        }, {
-            id: "hana", 
-            name: "花物語", 
-            jp: "hanamonogatari", 
-            time: "2014-08", 
-            post: ""
-        }, {
-            id: "tsuki", 
-            name: "憑物語", 
-            jp: "tsukimonogatari", 
-            time: "2014-12", 
-            post: ""
-        }, {
-            id: "owari", 
-            name: "終物語", 
-            jp: "owarimonogatari", 
-            time: "2015-10", 
-            post: ""
-        }, {
-            id: "kizu", 
-            name: "傷物語", 
-            jp: "kizumonogatari", 
-            time: "2016-01", 
-            post: ""
-        }, {
-            id: "koyomi", 
-            name: "暦物語", 
-            jp: "koyomimonogatari", 
-            time: "2016-01", 
-            post: ""
-        }, {
-            id: "owarige", 
-            name: "終物語・下", 
-            jp: "owarimonogatari", 
-            time: "2016-01", 
-            post: ""
-        }, {
-            id: "zoku", 
-            name: "続・終物語", 
-            jp: "zoku-owarimonogatari", 
-            time: "2016-01", 
-            post: ""
-        }, 
-    ];
     const TIMELS = [
         "化物语", "傷物語", "偽物語", "猫物語(黑)", "猫物語(白)", "傾物語", "囮物語", 
         "鬼物語", "恋物語", "花物語", "憑物語", "終物語", "暦物語", "終物語・下", "続・終物語"
@@ -232,10 +149,16 @@ function page_home() {
 
     function create_tv_div(o) {
         let $d = d().under($page);
-        d("play").cls("btn").html("&#xe6a1;").under($d).al("click", ()=> {
+        d("ico").cls("btn").html("&#xe6a1;").under($d).al("click", ()=> {
             route.go("/tv/"+ o.id, true);
         });
         d("name").text(o.name).under($d);
+
+        let cover = new Image();
+        d("ico").html("&#xe861;").under($d).append(d("ext").append(cover).d)
+            // 真图像懒加载
+            .once("pointerenter", ()=> cover.src = o.post);
+        d("ico").html("&#xe851;").under($d).append(d("ext").text(o.jp).d);
         d("time").text(o.time).under($d);
     }
 
@@ -257,15 +180,86 @@ function page_home() {
 }
 
 function page_tv() {
+    function render_episodes() {
+        $ls.text("");
+        for (let i=0;i<20;++i) {
+            d().text("第一集").under($ls);
+        }
+    }
+
+    function render_tools() {
+        $ls.text("");
+        d().text("来源:次元城动画").under($ls);
+        d().text("上一集(↑)").under($ls);
+        d().text("下一集(↓)").under($ls);
+        d().text("回放5秒(←)").under($ls).al("click", ()=> delta_seek(-5));
+        d().text("快进5秒(→)").under($ls).al("click", ()=> delta_seek(5));
+        d().text("回放0.1秒(,)").under($ls).al("click", ()=> delta_seek(-0.1, true));
+        d().text("快进0.1秒(.)").under($ls).al("click", ()=> delta_seek(0.1, true));
+    }
+
+    function delta_seek(sec, pause) {
+        if (pause && !vd.paused) vd.pause();
+        vd.currentTime += sec;
+    }
+
+    function delta_episode(i) {
+
+    }
+
+    function keydn(e) {
+        e.preventDefault();
+        if (e.repeat) return;
+        let k = e.key.toLowerCase();
+        switch (k) {
+            case "arrowleft":
+                delta_seek(-5);
+                break;
+            case "arrowright":
+                delta_seek(5);
+                break;
+            case "arrowup": case "arrowdown":
+                break;
+            case ",":
+                delta_seek(-0.1, true);
+                break;
+            case ".":
+                delta_seek(0.1, true);
+                break;
+        }
+    }
+
     let $page = d().id("tv");
+    let vd = d("video").rawattr("controls", "").attr("src", "/test.MOV")
+        .under($page).al("ended", ()=> delta_episode(1)).d;
+    
+    let $panel = d("panel").under($page);
+    d("ico").under($page).html("&#xe851;").al("click", ()=> {
+        panel_show = !panel_show;
+        $panel.style(panel_show? "left:10px": "left:-450px");
+    });
+    let panel_show = false;
+
+    let $hdr = d("header").under($panel);
+    d().text("选集").under($hdr).al("click", render_episodes);
+    d().text("工具").under($hdr).al("click", render_tools);
+
+    let $ls = d("ls").under($panel);
+
     $page.d.ongo = ()=> {
-        enter_anim.show("shinobu", "終物語", "MONOGATARI FINAL SEASON", ["しのぶ", "メイル"], "其ノ肆");
+        // enter_anim.show("shinobu", "終物語", "MONOGATARI FINAL SEASON", ["しのぶ", "メイル"], "其ノ肆");
+        window.addEventListener("keydown", keydn);
+        render_episodes();
         console.log(location.pathname);
     };
+    $page.d.onleave = ()=> {
+        window.removeEventListener("keydown", keydn);
+    };
+
     return $page.d;
 }
 
-const fullmask = d("fullmask");
+const fullmask = d("fullmask").al("animationend", ()=> fullmask.d.style.animation = "none");
 const enter_anim = init_enter_anim();
 
 const route = init_route();

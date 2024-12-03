@@ -17,7 +17,7 @@ body {
     --clr: #991515;
     --tx: #eee;
     --bg: #181818;
-    --shadow: #999;
+    --shadow: #9996;
     margin: 0;
     background-color: var(--bg);
     overflow: hidden;
@@ -37,6 +37,8 @@ a:hover, .btn:hover {
 
 ico {
     font-family: icon;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 ::selection {
@@ -234,11 +236,12 @@ main > div {
 }
 
 #home {
-    width: 800px;
+    width: 600px;
     height: 500px;
     border-radius: 10px;
-    box-shadow: 0 0 1px 2px var(--shadow);
+    box-shadow: 0 0 1px var(--shadow);
     overflow: hidden auto;
+    padding-bottom: 20px;
 }
 #home > h1 {
     text-align: center;
@@ -280,10 +283,34 @@ main > div {
     line-height: 30px;
     display: flex;
 }
-#home > div > play {
-    font-family: icon;
-    margin: 0 2px;
+#home > div > ico {
+    padding: 0 5px;
+    display: flex;
+    position: relative;
 }
+#home > div > ico > ext {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-align: right;
+    transition: width 0.1s;
+    background-color: var(--bg);
+}
+#home > div > ico:hover > ext {
+    width: 150px;
+}
+#home > div > ico > ext > img {
+    display: block;
+    width: 150px;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
 #home > div > name {
     width: 100px;
     flex-grow: 1;
@@ -291,5 +318,82 @@ main > div {
 #home > div > time {
     letter-spacing: 1px;
     width: 100px;
+    margin-left: 10px;
     color: var(--shadow);
+    font-weight: lighter;
+}
+
+
+#tv {
+    width: 100%;
+}
+#tv > video {
+    display: block;
+    object-fit: contain;
+    width: 100%;
+}
+#tv > ico {
+    position: absolute;
+    left: 30px; top: 20px;
+    font-size: 30px;
+    border-radius: 5px;
+    text-align: center;
+    width: 40px;
+    line-height: 40px;
+    color: var(--shadow);
+    cursor: pointer;
+    transition: color 0.1s, background-color 0.1s;
+}
+#tv > ico:hover, #tv > panel > header > div:hover {
+    color: var(--tx);
+    background-color: var(--clr);
+}
+#tv > panel {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: block;
+    width: 250px;
+    height: 500px;
+    transition: left 0.2s, opacity 0.2s;
+    background-color: var(--bg);
+    box-shadow: 0 0 1px var(--shadow);
+    border-radius: 10px;
+    text-align: center;
+    overflow: hidden auto;
+}
+#tv > panel > header {
+    display: flex;
+    padding: 10px 20px 10px 70px;
+    line-height: 40px;
+}
+#tv > panel > header > div {
+    flex-grow: 1;
+    color: var(--shadow);
+    transition: color 0.1s, background-color 0.1s;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+#tv > panel > ls {
+    display: block;
+    font-size: 18px;
+    line-height: 30px;
+    padding-bottom: 20px;
+    letter-spacing: 3px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+#tv > panel > ls > div {
+    margin: 5px 20px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.1s, color 0.1s, opacity 0.1s;
+    cursor: pointer;
+    opacity: 0.6;
+}
+#tv > panel > ls > div:hover {
+    color: var(--tx);
+    background-color: var(--clr);
+    opacity: 1;
 }
