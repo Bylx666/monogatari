@@ -61,13 +61,13 @@ class Div {
 let d = t=> new Div(t);
 
 function init_enter_anim() {
-    function show(name, bangumi_name, bangumi_name_en, content_title, content_subtitle) {
+    function show(name, bangumi_name, bangumi_name_en, content_title) {
         let url = suf=> `url(/asset/enter-anim/${name}${suf}.png) alpha 0/cover`;
         $bangumi_name.text("");
         for (let s of bangumi_name) d("span").text(s).under($bangumi_name);
         $bangumi_name_en.text(bangumi_name_en);
-        $content_title.text(content_title[0]).append(d("space").d).append(content_title[1]);
-        $content_subtitle.text(content_subtitle);
+        $content_title.text(content_title[0]).append(d("span").text(content_title[1]).d);
+        $content_subtitle.text(content_title[2]);
 
         $deco1.style(`-webkit-mask: ${url(1)};mask: ${url(1)};`);
         $deco2.style(`-webkit-mask: ${url(2)};mask: ${url(2)};`);
@@ -78,6 +78,8 @@ function init_enter_anim() {
         fullmask.d.style.animation = $d.d.style.animation = "fade-in 0.1s";
         fullmask.under(document.body);
         $d.under(document.body);
+        $d.d.style.setProperty("--clr", CHAR_COLOR[name]);
+        $d.d.style.setProperty("--bg", CHAR_COLOR_BG[name] || "#111");
     }
 
     function onresize() {
@@ -143,7 +145,7 @@ function init_route() {
 
 function page_home() {
     const TIMELS = [
-        "化物语", "傷物語", "偽物語", "猫物語(黑)", "猫物語(白)", "傾物語", "囮物語", 
+        "化物語", "傷物語", "偽物語", "猫物語(黑)", "猫物語(白)", "傾物語", "囮物語", 
         "鬼物語", "恋物語", "花物語", "憑物語", "終物語", "暦物語", "終物語・下", "続・終物語"
     ];
 
@@ -170,32 +172,61 @@ function page_home() {
 
     d("h2").text("TV(剧情顺序)").under($page);
     for (let s of TIMELS) create_tv_div(TVLS.find(({name})=> name === s));
-    d("p").html("参考: 文鹏HARUI: <a target='_blank' href='https://www.bilibili.com/opus/542848166447753194'>你所不知道的物语——2021.07物语系列完全指南萌新篇&进阶篇</a>").under($page);
+    d("p").html("参考: 文鹏HARUI\n<a target='_blank' href='https://www.bilibili.com/opus/542848166447753194'>你所不知道的物语——2021.07物语系列完全指南萌新篇&进阶篇</a>").under($page);
 
     d("h2").text("OST").under($page);
     d("p").text("todo...").under($page);
 
     d("p").text("本网站只收集网络资源,无广告无盈利项目\n本站任何行为与物语系列制作组无关\n本站收集资源均为转载,侵权请联系Q2822448396删除").under($page);
+
+    d("bg").under($page);
     return $page.d;
 }
 
 function page_tv() {
+    const SRCLINK = '<p>片源:<a target="_blank" href="https://www.cyc-anime.net/">次元城动画</a></p>';
+    
     function render_episodes() {
+        let meta = TVMETA[season], o;
+
         $ls.text("");
-        for (let i=0;i<20;++i) {
-            d().text("第一集").under($ls);
+        $b1.under($panel).cls(episodes_delta > 0? "btn": "hide");
+        $b2.under($panel).cls(meta[episodes_delta * 6 + 6]? "btn": "hide");
+
+        let begin = episodes_delta * 6;
+        for (let i = begin; (o = meta[i]) && i < begin + 6; ++i) {
+            let epstr = "第"+ (i+1) +"集";
+            d().text(epstr).under($ls).cls(i === episode? "act": "").append(
+                d("info").html(`<h4>${seasonname} ${epstr}</h4><ss>${o.name}</ss>`+ SRCLINK).d
+            ).al("click", ()=> goto_episode(i));
         }
     }
 
     function render_tools() {
         $ls.text("");
-        d().text("来源:次元城动画").under($ls);
-        d().text("上一集(↑)").under($ls);
-        d().text("下一集(↓)").under($ls);
-        d().text("回放5秒(←)").under($ls).al("click", ()=> delta_seek(-5));
-        d().text("快进5秒(→)").under($ls).al("click", ()=> delta_seek(5));
-        d().text("回放0.1秒(,)").under($ls).al("click", ()=> delta_seek(-0.1, true));
-        d().text("快进0.1秒(.)").under($ls).al("click", ()=> delta_seek(0.1, true));
+        $b1.rm();
+        $b2.rm();
+        d().text("信息").under($ls).append(d("info").html(
+            `<h4>终物语 第${episode+1}集</h4><ss>${TVMETA[season][episode].name}</ss>` + SRCLINK
+        ).d);
+        d().text("上一集").under($ls)
+            .append(d("info").html("<h4>快捷键</h4><ss>↑</ss>").d)
+            .al("click", ()=> goto_episode(episode - 1));
+        d().text("下一集").under($ls)
+            .append(d("info").html("<h4>快捷键</h4><ss>↓</ss>").d)
+            .al("click", ()=> goto_episode(episode + 1));
+        d().text("回放5秒").under($ls)
+            .append(d("info").html("<h4>快捷键</h4><ss>←</ss>").d)
+            .al("click", ()=> delta_seek(-5));
+        d().text("快进5秒").under($ls)
+            .append(d("info").html("<h4>快捷键</h4><ss>→</ss>").d)
+            .al("click", ()=> delta_seek(5));
+        d().text("回放0.1秒").under($ls)
+            .append(d("info").html("<h4>快捷键</h4><ss>,</ss>").d)
+            .al("click", ()=> delta_seek(-0.1, true));
+        d().text("快进0.1秒").under($ls)
+            .append(d("info").html("<h4>快捷键</h4><ss>.</ss>").d)
+            .al("click", ()=> delta_seek(0.1, true));
     }
 
     function delta_seek(sec, pause) {
@@ -203,8 +234,14 @@ function page_tv() {
         vd.currentTime += sec;
     }
 
-    function delta_episode(i) {
-
+    function goto_episode(i, dontpushstate) {
+        let obj = TVMETA[season][i];
+        if (!obj) return;
+        episode = i;
+        enter_anim.show(obj.char, seasonname, "MONOGATARI SERIES", obj.jp);
+        // vd.src = obj.src;
+        render_episodes();
+        if (!dontpushstate) history.pushState(null, "", `/tv/${season}/${episode}`);
     }
 
     function keydn(e) {
@@ -218,7 +255,11 @@ function page_tv() {
             case "arrowright":
                 delta_seek(5);
                 break;
-            case "arrowup": case "arrowdown":
+            case "arrowup":
+                goto_episode(episode - 1);
+                break;
+            case "arrowdown":
+                goto_episode(episode + 1);
                 break;
             case ",":
                 delta_seek(-0.1, true);
@@ -226,31 +267,48 @@ function page_tv() {
             case ".":
                 delta_seek(0.1, true);
                 break;
+            case " ":
+                vd.paused? vd.play(): vd.pause();
+                break;
         }
     }
 
     let $page = d().id("tv");
     let vd = d("video").rawattr("controls", "").attr("src", "/test.MOV")
-        .under($page).al("ended", ()=> delta_episode(1)).d;
+        .under($page).al("ended", ()=> goto_episode(episode + 1)).d;
     
     let $panel = d("panel").under($page);
     d("ico").under($page).html("&#xe851;").al("click", ()=> {
         panel_show = !panel_show;
-        $panel.style(panel_show? "left:10px": "left:-450px");
+        $panel.cls(panel_show? "": "hide");
     });
-    let panel_show = false;
+    let panel_show = true;
 
     let $hdr = d("header").under($panel);
     d().text("选集").under($hdr).al("click", render_episodes);
     d().text("工具").under($hdr).al("click", render_tools);
 
     let $ls = d("ls").under($panel);
+    let $b1 = d("ico").html("&#xe83d;").cls("btn").under($panel).al("click", ()=> {
+        if (episodes_delta > 0) render_episodes(--episodes_delta);
+    });
+    let $b2 = d("ico").html("&#xe840;").cls("btn").under($panel).al("click", ()=> {
+        if (TVMETA[season][episodes_delta * 6 + 6]) render_episodes(++episodes_delta);
+    });
+
+    let season = "bake", episode = 0, seasonname = "化物語";
+    let episodes_delta = 0;
 
     $page.d.ongo = ()=> {
-        // enter_anim.show("shinobu", "終物語", "MONOGATARI FINAL SEASON", ["しのぶ", "メイル"], "其ノ肆");
+        let path = location.pathname.split("/").filter(s=>s);
+        season = path[1] || "bake";
+        episode = path[2] || 0;
+        episodes_delta = 0 | episode / 6;
+
+        let sn = TVLS.find(({id})=> id === season);
+        seasonname = sn? sn.name: "化物語";
+        goto_episode(episode, true);
         window.addEventListener("keydown", keydn);
-        render_episodes();
-        console.log(location.pathname);
     };
     $page.d.onleave = ()=> {
         window.removeEventListener("keydown", keydn);

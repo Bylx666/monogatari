@@ -17,7 +17,7 @@ body {
     --clr: #991515;
     --tx: #eee;
     --bg: #181818;
-    --shadow: #9996;
+    --shadow: #5554;
     margin: 0;
     background-color: var(--bg);
     overflow: hidden;
@@ -200,8 +200,8 @@ ico {
     font-weight: normal;
     letter-spacing: 15px;
 }
-#enter-anim > cont > h3 > space {
-    margin: 0 30px;
+#enter-anim > cont > h3 > span {
+    margin-left: 100px;
 }
 #enter-anim > cont > h4 {
     top: 200px;
@@ -236,12 +236,13 @@ main > div {
 }
 
 #home {
-    width: 600px;
+    width: 540px;
     height: 500px;
     border-radius: 10px;
-    box-shadow: 0 0 1px var(--shadow);
+    /* box-shadow: 0 0 1px var(--shadow); */
     overflow: hidden auto;
     padding-bottom: 20px;
+    background-color: var(--bg);
 }
 #home > h1 {
     text-align: center;
@@ -318,9 +319,15 @@ main > div {
 #home > div > time {
     letter-spacing: 1px;
     width: 100px;
-    margin-left: 10px;
+    text-align: right;
     color: var(--shadow);
     font-weight: lighter;
+}
+#home > bg {
+    z-index: -1;
+    position: fixed;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background-image: linear-gradient(45deg, var(--bg) 0%, var(--shadow));
 }
 
 
@@ -334,7 +341,7 @@ main > div {
 }
 #tv > ico {
     position: absolute;
-    left: 30px; top: 20px;
+    left: 20px; top: 20px;
     font-size: 30px;
     border-radius: 5px;
     text-align: center;
@@ -352,23 +359,26 @@ main > div {
     position: absolute;
     top: 10px;
     left: 10px;
-    display: block;
-    width: 250px;
-    height: 500px;
-    transition: left 0.2s, opacity 0.2s;
+    display: flex;
+    width: 800px;
+    height: 60px;
+    transition: left 0.2s, opacity 0.1s;
     background-color: var(--bg);
-    box-shadow: 0 0 1px var(--shadow);
     border-radius: 10px;
     text-align: center;
-    overflow: hidden auto;
+    overflow: visible;
+}
+#tv > panel.hide {
+    left: -850px;
+    opacity: 0;
 }
 #tv > panel > header {
-    display: flex;
-    padding: 10px 20px 10px 70px;
-    line-height: 40px;
+    padding: 10px 5px 10px 50px;
+    font-size: 12px;
+    line-height: 20px;
+    width: 70px;
 }
 #tv > panel > header > div {
-    flex-grow: 1;
     color: var(--shadow);
     transition: color 0.1s, background-color 0.1s;
     cursor: pointer;
@@ -376,24 +386,76 @@ main > div {
     border-radius: 5px;
 }
 #tv > panel > ls {
-    display: block;
-    font-size: 18px;
+    flex-grow: 1;
+    display: flex;
+    font-size: 15px;
     line-height: 30px;
-    padding-bottom: 20px;
-    letter-spacing: 3px;
+    padding-right: 10px;
+    letter-spacing: 1px;
     user-select: none;
     -webkit-user-select: none;
 }
-#tv > panel > ls > div {
-    margin: 5px 20px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.1s, color 0.1s, opacity 0.1s;
-    cursor: pointer;
-    opacity: 0.6;
+
+@keyframes tv-panel-fade {
+    0% {
+        opacity: 0;
+        transform: translate(-5px);
+    }
 }
-#tv > panel > ls > div:hover {
-    color: var(--tx);
+#tv > panel > ls > div {
+    flex-grow: 1;
+    margin: 10px 5px;
+    padding: 5px 0;
+    border-radius: 5px;
+    transition: background-color 0.1s;
+    cursor: pointer;
+    position: relative;
+    animation: tv-panel-fade 0.1s;
+}
+#tv > panel > ls > div:hover, #tv > panel > ls > div.act {
     background-color: var(--clr);
+}
+#tv > panel > ls > div > info {
+    position: absolute;
+    left: 0; top: 42px;
+    width: 200px;
+    height: 0;
+    opacity: 0;
+    background-color: var(--bg);
+    overflow: hidden;
+    transition: height 0.1s, opacity 0.1s;
+    border-radius: 5px;
+    cursor: auto;
+}
+#tv > panel > ls > div:hover > info {
+    height: 160px;
     opacity: 1;
+}
+#tv > panel > ls > div > info > h4 {
+    margin: 10px 30px;
+    font-size: 12px;
+    line-height: 30px;
+    border-bottom: 1px solid var(--clr);
+}
+#tv > panel > ls > div > info > ss {
+    display: block;
+    font-size: 20px;
+    line-height: 40px;
+    letter-spacing: 4px;
+}
+#tv > panel > ls > div > info > p {
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%;
+    color: var(--shadow);
+    font-size: 12px;
+}
+#tv > panel > ico {
+    margin: 10px 5px;
+    font-size: 24px;
+    line-height: 40px;
+    transition: opacity 0.1s;
+}
+#tv > panel > ico.hide {
+    opacity: 0.5;
 }
