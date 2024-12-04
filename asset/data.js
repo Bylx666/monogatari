@@ -98,84 +98,150 @@ const TVMETA = {
         name: "黑仪螃蟹I", 
         jp: ["ひたぎ", "クラブ", "其の壹"], 
         char: "hitaki", 
-        src: "https://7ry7ipj57p.senhewenhua.com:11451/cache/5YyW54mp6K+tLTAxLm1wNA==.mp4?verify=1733228248-%2BbQSBcu3cGPPmV604iG84Nip7yqI%2FsF96r%2FFHWLQ280%3D"
+        src: "5YyW54mp6K+tLTAxLm1wNA=="
     }, {
         name: "黑仪螃蟹II", 
         char: "hitaki", 
         jp: ["ひたぎ", "クラブ", "其の贰"], 
-        src: "https://zzhxwp3j4a.senhewenhua.com:11451/cache/5YyW54mp6K+tLTAyLm1wNA==.mp4?verify=1733228551-H5E6uSzbVuEEWtVqy3O551x%2FA5yTa5SQEzNv0YBtYB8%3D"
+        src: "5YyW54mp6K+tLTAyLm1wNA=="
     }, {
         name: "真宵蜗牛I", 
         char: "mayoi", 
         jp: ["まよい", "マイマイ", "其の壹"], 
-        src: "https://sgfh0yzbfi.senhewenhua.com:11451/cache/5YyW54mp6K+tLTAzLm1wNA==.mp4?verify=1733229917-BE6yqVPqEJVcS0wsSt8waYqU1uAj2C7ETyTrgJSMsWc%3D"
+        src: "5YyW54mp6K+tLTAzLm1wNA=="
     }, {
         name: "真宵蜗牛II", 
         char: "mayoi", 
         jp: ["まよい", "マイマイ", "其の贰"], 
-        src: "https://h6edvys2eo.senhewenhua.com:11451/cache/5YyW54mp6K+tLTA0Lm1wNA==.mp4?verify=1733230151-7JUgm0mUio0BzVskkF3eLcwFsh9yOv1WWcSGUohZ0VM%3D"
+        src: "5YyW54mp6K+tLTA0Lm1wNA=="
     }, {
         name: "真宵蜗牛III", 
         char: "mayoi", 
         jp: ["まよい", "マイマイ", "其の参"], 
-        src: "https://mn0r4qedgu.senhewenhua.com:11451/cache/5YyW54mp6K+tLTA1Lm1wNA==.mp4?verify=1733230238-i%2BHS2yJNvth1QRA%2BqsnZvinF0xTU2Xly%2BDJrHwLGEt4%3D"
+        src: "5YyW54mp6K+tLTA1Lm1wNA=="
     }, {
         name: "骏河猴子I", 
         char: "suruga", 
         jp: ["するが", "モンキー", "其の壹"], 
-        src: "https://18uy0vnk1a.senhewenhua.com:11451/cache/5YyW54mp6K+tLTA2Lm1wNA==.mp4?verify=1733231733-wj5e3Cdk9ABedE8s0thswuqa5gPF6NY6GFJk5X5Xa6g%3D"
+        src: "5YyW54mp6K+tLTA2Lm1wNA=="
     }, {
         name: "骏河猴子II", 
         char: "suruga", 
         jp: ["するが", "モンキー", "其の贰"], 
-        src: "https://k67yjxcopp.senhewenhua.com:11451/cache/5YyW54mp6K+tLTA3Lm1wNA==.mp4?verify=1733231962-L2byK16e%2BGANWDDnUaph0kTx4o3Nltwtb7ATWwE%2B%2FK0%3D"
+        src: "5YyW54mp6K+tLTA3Lm1wNA=="
     }, {
         name: "骏河猴子III", 
         char: "suruga", 
         jp: ["するが", "モンキー", "其の参"], 
-        src: "https://iu3j32nmdy.senhewenhua.com:11451/cache/5YyW54mp6K+tLTA4Lm1wNA==.mp4?verify=1733232034-A20VUwVsBsHHtLNb1WpdcLsKpojiULRO98KZiUY9U1k%3D"
+        src: "5YyW54mp6K+tLTA4Lm1wNA=="
     }, {
         name: "抚子与蛇I", 
         char: "nadeko", 
         jp: ["なでこ", "スネイク", "其の壹"], 
-        src: "https://hbqrhg0n2b.senhewenhua.com:11451/cache/5YyW54mp6K+tLTA5Lm1wNA==.mp4?verify=1733232120-AVSpMHe%2BgJXW3UxzidpS3gSHxTGDwF7%2BkvnwrgfSw1U%3D"
+        src: "5YyW54mp6K+tLTA5Lm1wNA=="
     }, {
         name: "抚子与蛇II", 
         char: "nadeko", 
         jp: ["なでこ", "スネイク", "其の贰"], 
-        src: "https://gwz6jhamt9.senhewenhua.com:11451/cache/5YyW54mp6K+tLTEwLm1wNA==.mp4?verify=1733232311-3wMNKq9FHQ9xTTbxb%2Bb%2BnrMHKZ%2BVWSnsFJ6e%2F87%2Bf5o%3D"
+        src: "5YyW54mp6K+tLTEwLm1wNA=="
     }, {
         name: "羽川与猫I", 
+        char: "tsubasa", 
         jp: ["つばさ", "キャット", "其の壹"], 
-        src: "https://4w35j9d1ea.senhewenhua.com:11451/cache/5YyW54mp6K+tLTExLm1wNA==.mp4?verify=1733232435-MG7PSQTgOGB0xjvt4vj226SYa2fpO7Fzo5Z9hwA5B4Q%3D"
+        src: "5YyW54mp6K+tLTExLm1wNA=="
     }, {
         name: "羽川与猫II", 
+        char: "hitaki", 
         jp: ["つばさ", "キャット", "其の贰"], 
-        src: "https://77yhhtx84r.senhewenhua.com:11451/cache/5YyW54mp6K+tLTEyLm1wNA==.mp4?verify=1733232585-3lFVV5YrZnZjVH6CeymBlO4DIcZXsJKTZD%2BowFuHw%2BM%3D"
+        src: "5YyW54mp6K+tLTEyLm1wNA=="
     }, {
         name: "羽川与猫III", 
+        char: "tsubasa", 
         jp: ["つばさ", "キャット", "其の参"], 
-        src: "https://ukhr9qu9gz.senhewenhua.com:11451/cache/5YyW54mp6K+tLTEzLm1wNA==.mp4?verify=1733232699-a8HbTTXsb3VzAwR0LI03DG4gsRENO69QtplwsXqXAtY%3D"
+        src: "5YyW54mp6K+tLTEzLm1wNA=="
     }, {
         name: "羽川与猫IV", 
+        char: "tsubasa", 
         jp: ["つばさ", "キャット", "其の肆"], 
-        src: "https://7ynbl4aia3.senhewenhua.com:11451/cache/5YyW54mp6K+tLTE0Lm1wNA==.mp4?verify=1733232989-7QPTnU8EiJ2GjEM%2BxyA4RPcdiiWG2ys%2FwxoVoEsNOUA%3D"
+        src: "5YyW54mp6K+tLTE0Lm1wNA=="
     }, {
         name: "羽川与猫V", 
+        char: "tsubasa", 
         jp: ["つばさ", "キャット", "其の伍"], 
-        src: "https://bin1tr9fmh.senhewenhua.com:11451/cache/5YyW54mp6K+tLTE1Lm1wNA==.mp4?verify=1733233062-OMXS1v3xD5f5lo%2FNiv5TO5k4WInxOsBqab6t9QF8iSs%3D"
-    }]
+        src: "5YyW54mp6K+tLTE1Lm1wNA=="
+    }], 
+    nise: [{
+        name: "火怜蜜蜂I", 
+        jp: ["かれん", "ビー", "其の壹"], 
+        char: "karen", 
+        src: "5Lyq54mp6K+tLTAxLm1wNA=="
+    }, {
+        name: "火怜蜜蜂II", 
+        jp: ["かれん", "ビー", "其の贰"], 
+        char: "karen", 
+        src: "5Lyq54mp6K+tLTAyLm1wNA=="
+    }, {
+        name: "火怜蜜蜂III", 
+        jp: ["かれん", "ビー", "其の参"], 
+        char: "karen", 
+        src: "5Lyq54mp6K+tLTAzLm1wNA=="
+    }, {
+        name: "火怜蜜蜂IV", 
+        jp: ["かれん", "ビー", "其の肆"], 
+        char: "karen", 
+        src: "5Lyq54mp6K+tLTA0Lm1wNA=="
+    }, {
+        name: "火怜蜜蜂V", 
+        jp: ["かれん", "ビー", "其の伍"], 
+        char: "karen", 
+        src: "5Lyq54mp6K+tLTA1Lm1wNA=="
+    }, {
+        name: "火怜蜜蜂VI", 
+        jp: ["かれん", "ビー", "其の陸"], 
+        char: "karen", 
+        src: "5Lyq54mp6K+tLTA2Lm1wNA=="
+    }, {
+        name: "火怜蜜蜂VII", 
+        jp: ["かれん", "ビー", "其の漆"], 
+        char: "karen", 
+        src: "5Lyq54mp6K+tLTA3Lm1wNA=="
+    }, {
+        name: "月火凤凰I", 
+        jp: ["つきひ", "フェニックス", "其の壹"], 
+        char: "tsukihi", 
+        src: "5Lyq54mp6K+tLTA4Lm1wNA=="
+    }, {
+        name: "月火凤凰II", 
+        jp: ["つきひ", "フェニックス", "其の贰"], 
+        char: "tsukihi", 
+        src: "5Lyq54mp6K+tLTA5Lm1wNA=="
+    }, {
+        name: "月火凤凰III", 
+        jp: ["つきひ", "フェニックス", "其の参"], 
+        char: "tsukihi", 
+        src: "5Lyq54mp6K+tLTEwLm1wNA=="
+    }, {
+        name: "月火凤凰IV", 
+        jp: ["つきひ", "フェニックス", "其の肆"], 
+        char: "tsukihi", 
+        src: "5Lyq54mp6K+tLTExLm1wNA=="
+    }, ]
 };
 
 const CHAR_COLOR = {
-    hitaki: "rgb(150 67 77)", 
+    hitaki: "#8F5985", 
     shinobu: "#F4954E", 
     mayoi: "rgb(179 197 103)", 
     suruga: "#D77C4C", 
-    nadeko: "#BF383A"
+    nadeko: "#BF383A", 
+    tsubasa: "#F8D0E2", 
+    karen: "#333", 
+    tsukihi: "#9DC1A9"
 };
 const CHAR_COLOR_BG = {
     shinobu: "#FFEC7A", 
     mayoi: "rgb(243 207 199)", 
-    nadeko: "#fff"
+    nadeko: "#fff", 
+    karen: "#F8D166", 
+    tsukihi: "#E2D48E"
 };

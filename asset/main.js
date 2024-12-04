@@ -197,35 +197,38 @@ function page_tv() {
         for (let i = begin; (o = meta[i]) && i < begin + 6; ++i) {
             let epstr = "第"+ (i+1) +"集";
             d().text(epstr).under($ls).cls(i === episode? "act": "").append(
-                d("info").html(`<h4>${seasonname} ${epstr}</h4><ss>${o.name}</ss>`+ SRCLINK).d
+                d("info").html(`<h4>${seasonname} ${epstr}</h4><ss>${o.name}</ss>`+ SRCLINK)
+                    .al("click", e=> e.stopPropagation()).d
             ).al("click", ()=> goto_episode(i));
         }
     }
 
     function render_tools() {
+        let tohome = ()=> d("p").html("<a>回到首页</a>").al("click", ()=> route.go("/home", true)).d;
+        let info = ()=> d("info").al("click", e=> e.stopPropagation());
         $ls.text("");
         $b1.rm();
         $b2.rm();
-        d().text("信息").under($ls).append(d("info").html(
-            `<h4>终物语 第${episode+1}集</h4><ss>${TVMETA[season][episode].name}</ss>` + SRCLINK
-        ).d);
+        d().text("信息").under($ls).append(info().html(
+            `<h4>终物语 第${episode+1}集</h4><ss>${TVMETA[season][episode].name}</ss>`
+        ).append(tohome()).d);
         d().text("上一集").under($ls)
-            .append(d("info").html("<h4>快捷键</h4><ss>↑</ss>").d)
+            .append(info().html("<h4>快捷键</h4><ss>↑</ss>").append(tohome()).d)
             .al("click", ()=> goto_episode(episode - 1));
         d().text("下一集").under($ls)
-            .append(d("info").html("<h4>快捷键</h4><ss>↓</ss>").d)
+            .append(info().html("<h4>快捷键</h4><ss>↓</ss>").append(tohome()).d)
             .al("click", ()=> goto_episode(episode + 1));
         d().text("回放5秒").under($ls)
-            .append(d("info").html("<h4>快捷键</h4><ss>←</ss>").d)
+            .append(info().html("<h4>快捷键</h4><ss>←</ss>").append(tohome()).d)
             .al("click", ()=> delta_seek(-5));
         d().text("快进5秒").under($ls)
-            .append(d("info").html("<h4>快捷键</h4><ss>→</ss>").d)
+            .append(info().html("<h4>快捷键</h4><ss>→</ss>").append(tohome()).d)
             .al("click", ()=> delta_seek(5));
         d().text("回放0.1秒").under($ls)
-            .append(d("info").html("<h4>快捷键</h4><ss>,</ss>").d)
+            .append(info().html("<h4>快捷键</h4><ss>,</ss>").append(tohome()).d)
             .al("click", ()=> delta_seek(-0.1, true));
         d().text("快进0.1秒").under($ls)
-            .append(d("info").html("<h4>快捷键</h4><ss>.</ss>").d)
+            .append(info().html("<h4>快捷键</h4><ss>.</ss>").append(tohome()).d)
             .al("click", ()=> delta_seek(0.1, true));
     }
 
@@ -238,10 +241,10 @@ function page_tv() {
         let obj = TVMETA[season][i];
         if (!obj) return;
         episode = i;
-        enter_anim.show(obj.char, seasonname, "MONOGATARI SERIES", obj.jp);
-        // vd.src = obj.src;
+        get_cyc(obj.src);
         render_episodes();
         if (!dontpushstate) history.pushState(null, "", `/tv/${season}/${episode}`);
+        enter_anim.show(obj.char, seasonname, "MONOGATARI SERIES", obj.jp);
     }
 
     function keydn(e) {
@@ -273,6 +276,18 @@ function page_tv() {
         }
     }
 
+    function get_cyc(u) {
+        vd.pause();
+        let ifr = d("iframe").style("display:none").under(document.body)
+            .attr("src", `/api/cyc?url=${window.encodeURIComponent(u)}`)
+            .al("load", ()=> {
+                let cycsrc = ifr.contentWindow.document.querySelector("video");
+                if (cycsrc) vd.src = cycsrc.src;
+                ifr.remove();
+                ifr = null;
+            }).d;
+    }
+
     let $page = d().id("tv");
     let vd = d("video").rawattr("controls", "").attr("src", "/test.MOV")
         .under($page).al("ended", ()=> goto_episode(episode + 1)).d;
@@ -302,12 +317,13 @@ function page_tv() {
     $page.d.ongo = ()=> {
         let path = location.pathname.split("/").filter(s=>s);
         season = path[1] || "bake";
-        episode = path[2] || 0;
+        episode = parseInt(path[2]) || 0;
         episodes_delta = 0 | episode / 6;
 
         let sn = TVLS.find(({id})=> id === season);
         seasonname = sn? sn.name: "化物語";
         goto_episode(episode, true);
+
         window.addEventListener("keydown", keydn);
     };
     $page.d.onleave = ()=> {
