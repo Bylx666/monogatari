@@ -66,7 +66,8 @@ function init_enter_anim() {
         $bangumi_name.text("");
         for (let s of bangumi_name) d("span").text(s).under($bangumi_name);
         $bangumi_name_en.text(bangumi_name_en);
-        $content_title.text(content_title[0]).append(d("span").text(content_title[1]).d);
+        $content_title.text("");
+        for (let i = 0; i < 2; ++i) d("span").text(content_title[i]).under($content_title);
         $content_subtitle.text(content_title[2]);
 
         $deco1.style(`-webkit-mask: ${url(1)};mask: ${url(1)};`);
@@ -173,9 +174,6 @@ function page_home() {
     d("h2").text("TV(剧情顺序)").under($page);
     for (let s of TIMELS) create_tv_div(TVLS.find(({name})=> name === s));
     d("p").html("参考: 文鹏HARUI\n<a target='_blank' href='https://www.bilibili.com/opus/542848166447753194'>你所不知道的物语——2021.07物语系列完全指南萌新篇&进阶篇</a>").under($page);
-
-    d("h2").text("OST").under($page);
-    d("p").text("todo...").under($page);
 
     d("p").text("本网站只收集网络资源,无广告无盈利项目\n本站任何行为与物语系列制作组无关\n本站收集资源均为转载,侵权请联系Q2822448396删除").under($page);
 

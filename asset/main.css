@@ -199,13 +199,20 @@ ico {
     margin: 0;
     font-weight: normal;
     letter-spacing: 15px;
+    display: flex;
 }
 #enter-anim > cont > h3 > span {
-    margin-left: 100px;
+    text-align: right;
+    width: 360px;
+}
+#enter-anim > cont > h3 > span:last-child {
+    text-align: left;
+    margin-left: 80px;
 }
 #enter-anim > cont > h4 {
     top: 200px;
     letter-spacing: 2px;
+    display: block;
 }
 #enter-anim > cont > snb {
     position: absolute;
